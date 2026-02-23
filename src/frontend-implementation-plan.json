@@ -1,0 +1,563 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Construction Tracker Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement user authentication UI with Internet Identity supporting four roles (Admin, Foreman, Buyer, Finance) with role-based access control",
+      "acceptanceCriteria": [
+        "Users can authenticate using Internet Identity",
+        "System enforces four distinct roles: Admin, Foreman, Buyer, Finance",
+        "Each role has appropriate permissions for their workflow stage",
+        "Users can only access features permitted for their role"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create login/logout button component using the authorization component. Use the authorization component to support Internet Identity authentication with role-based access control. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetup.tsx",
+          "operation": "create",
+          "description": "Create profile setup modal for first-time users to enter their name and select their app role (Admin, Foreman, Buyer, Finance). Use the authorization component pattern for profile management. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create React Query hook to fetch the current user's profile using getCallerUserProfile backend method. Follow authorization component pattern to prevent profile setup modal flash. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useSaveCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create React Query mutation hook to save user profile using saveCallerUserProfile backend method. Include cache invalidation for currentUserProfile query."
+        },
+        {
+          "path": "frontend/src/components/AccessDenied.tsx",
+          "operation": "create",
+          "description": "Create access denied screen component shown when users attempt to access features beyond their role permissions. Use authorization component guidance for handling authorization errors."
+        },
+        {
+          "path": "frontend/src/components/ProtectedRoute.tsx",
+          "operation": "create",
+          "description": "Create protected route wrapper component that checks user authentication status and role permissions before rendering children. Redirect to AccessDenied when unauthorized."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create master data management UI for Materials, Jobs, and Vendors with CRUD operations",
+      "acceptanceCriteria": [
+        "Admin can create, read, update, and delete materials with name, unit, and price fields",
+        "Admin can manage jobs/work items master data",
+        "Admin can manage vendor/supplier master data",
+        "All master data is accessible for use in RAP creation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MasterDataPage.tsx",
+          "operation": "create",
+          "description": "Create admin-only master data management page with tabs for Materials, Jobs, and Vendors. Wrap with ProtectedRoute requiring Admin role."
+        },
+        {
+          "path": "frontend/src/components/materials/MaterialList.tsx",
+          "operation": "create",
+          "description": "Create material list component displaying all materials in a table with columns for name, unit, price, and action buttons (edit, delete)."
+        },
+        {
+          "path": "frontend/src/components/materials/MaterialForm.tsx",
+          "operation": "create",
+          "description": "Create material form component for creating and editing materials with fields for name, unit, and price. Use shadcn/ui form components."
+        },
+        {
+          "path": "frontend/src/hooks/useMaterials.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for material CRUD operations: useGetAllMaterials (query), useAddMaterial, useUpdateMaterial, useDeleteMaterial (mutations)."
+        },
+        {
+          "path": "frontend/src/components/vendors/VendorList.tsx",
+          "operation": "create",
+          "description": "Create vendor list component displaying all vendors in a table with columns for name, address, phone, and action buttons (edit, delete)."
+        },
+        {
+          "path": "frontend/src/components/vendors/VendorForm.tsx",
+          "operation": "create",
+          "description": "Create vendor form component for creating and editing vendors with fields for name, address, and phone. Use shadcn/ui form components."
+        },
+        {
+          "path": "frontend/src/hooks/useVendors.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for vendor CRUD operations: useGetAllVendors (query), useAddVendor, useUpdateVendor, useDeleteVendor (mutations)."
+        },
+        {
+          "path": "frontend/src/components/jobs/JobList.tsx",
+          "operation": "create",
+          "description": "Create job list component displaying all jobs in a hierarchical tree structure showing parent-child relationships. Include columns for name, volume, unit, cost, and action buttons."
+        },
+        {
+          "path": "frontend/src/components/jobs/JobForm.tsx",
+          "operation": "create",
+          "description": "Create job form component for creating and editing jobs with fields for name, volume, unit, cost, and optional parent job selection. Use shadcn/ui form components."
+        },
+        {
+          "path": "frontend/src/hooks/useJobs.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for job CRUD operations: useGetAllJobs (query), useAddJob, useUpdateJob, useDeleteJob (mutations)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement RAP/RAB creation UI with unlimited nested sub-job structure where each level has independent volume, unit, and cost",
+      "acceptanceCriteria": [
+        "Users can create RAP/RAB by selecting from master data (materials, jobs)",
+        "Sub-jobs can be nested to unlimited depth levels",
+        "Each job and sub-job level has independent volume, unit, and cost fields",
+        "Cost at each level is manually entered and not auto-calculated from children",
+        "Users can build RAP structure hierarchically with main jobs and nested sub-jobs"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/RAPBuilderPage.tsx",
+          "operation": "create",
+          "description": "Create RAP builder page allowing users to construct RAP/RAB structures by adding jobs and sub-jobs. Display hierarchical tree with drag-and-drop or add-child functionality for unlimited nesting."
+        },
+        {
+          "path": "frontend/src/components/rap/RAPTreeView.tsx",
+          "operation": "create",
+          "description": "Create RAP tree view component displaying nested job hierarchy with expand/collapse controls. Show name, volume, unit, and cost for each level. Support unlimited depth nesting."
+        },
+        {
+          "path": "frontend/src/components/rap/RAPJobNode.tsx",
+          "operation": "create",
+          "description": "Create RAP job node component representing a single job in the tree with controls to add sub-jobs, edit current job, or delete. Each node displays its own volume, unit, and cost independently."
+        },
+        {
+          "path": "frontend/src/components/rap/AddJobToRAPDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog component to add or edit a job within RAP structure. Allow selecting from master jobs or creating inline with fields for name, volume, unit, cost, and parent selection."
+        },
+        {
+          "path": "frontend/src/utils/rapTreeHelpers.ts",
+          "operation": "create",
+          "description": "Create utility functions for manipulating RAP tree structure: building hierarchy from flat job list, finding parent-child relationships, calculating tree depth, and traversing nested structures."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Create master RAP template UI allowing users to save reusable RAP structures and apply templates to new projects",
+      "acceptanceCriteria": [
+        "Users can save a RAP structure as a master template",
+        "Templates preserve the complete nested sub-job hierarchy",
+        "Users can browse and select from existing master templates",
+        "Applying a template creates a new RAP instance that can be customized",
+        "Templates are reusable across multiple projects"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/RAPTemplatesPage.tsx",
+          "operation": "create",
+          "description": "Create RAP templates management page displaying all saved templates in a list or grid. Include controls to create new template, view template details, apply template, edit, and delete."
+        },
+        {
+          "path": "frontend/src/components/templates/TemplateList.tsx",
+          "operation": "create",
+          "description": "Create template list component displaying all RAP templates with template name, job count, and action buttons (view, apply, edit, delete)."
+        },
+        {
+          "path": "frontend/src/components/templates/SaveTemplateDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog component to save current RAP structure as a template. Prompt user for template name and capture complete job hierarchy from current RAP builder state."
+        },
+        {
+          "path": "frontend/src/components/templates/ApplyTemplateDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog component to apply an existing template to current project. Show template preview with job structure and confirm action to load template into RAP builder."
+        },
+        {
+          "path": "frontend/src/hooks/useRAPTemplates.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for RAP template operations: useGetAllRAPTemplates (query), useCreateRAPTemplate, useUpdateRAPTemplate, useDeleteRAPTemplate (mutations)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement material/fund request UI where Foreman selects a main job (automatically including all sub-jobs and materials) to create a request",
+      "acceptanceCriteria": [
+        "Foreman can create material/fund requests based on RAP jobs",
+        "Selecting a main job automatically includes all nested sub-jobs and their materials",
+        "Request captures the complete job hierarchy with quantities and costs",
+        "Request is submitted to Buyer for review"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CreateRequestPage.tsx",
+          "operation": "create",
+          "description": "Create Foreman-only request creation page where user selects a main job and associated material with quantity. Wrap with ProtectedRoute requiring Foreman role."
+        },
+        {
+          "path": "frontend/src/components/requests/JobSelector.tsx",
+          "operation": "create",
+          "description": "Create job selector component displaying available jobs in a dropdown or tree picker. Show job hierarchy and allow selection of main job which automatically includes all sub-jobs."
+        },
+        {
+          "path": "frontend/src/components/requests/MaterialRequestForm.tsx",
+          "operation": "create",
+          "description": "Create material request form component with fields for job selection, material selection (from master materials), and quantity input. Display selected job's sub-job structure for transparency."
+        },
+        {
+          "path": "frontend/src/hooks/useMaterialRequests.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for material request operations: useGetMyMaterialRequests, useGetAllMaterialRequests, useCreateMaterialRequest (mutation)."
+        },
+        {
+          "path": "frontend/src/pages/MyRequestsPage.tsx",
+          "operation": "create",
+          "description": "Create Foreman's requests tracking page showing all requests created by current user with status, approval stages, and remaining amounts for partial approvals."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement Buyer review and approval UI where Buyer can view requests, edit quantities and prices, and approve partially with remaining amounts tracked",
+      "acceptanceCriteria": [
+        "Buyer receives requests from Foreman in their dashboard",
+        "Buyer can edit quantity and price for requested items",
+        "Buyer can approve requests partially (approve a portion of the requested amount)",
+        "System tracks remaining unapproved amounts",
+        "Foreman can submit new requests for the remaining amounts",
+        "Approved requests move to Finance stage"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/BuyerReviewPage.tsx",
+          "operation": "create",
+          "description": "Create Buyer-only review page displaying pending material requests awaiting Buyer approval. Wrap with ProtectedRoute requiring Buyer role."
+        },
+        {
+          "path": "frontend/src/components/buyer/RequestReviewList.tsx",
+          "operation": "create",
+          "description": "Create request review list component for Buyer showing all pending requests with columns for requestor, job, material, quantity, and action buttons (review, approve)."
+        },
+        {
+          "path": "frontend/src/components/buyer/ApprovalDialog.tsx",
+          "operation": "create",
+          "description": "Create approval dialog component for Buyer to review request details, edit quantity and price, and approve partially or fully. Display calculated remaining amount after partial approval."
+        },
+        {
+          "path": "frontend/src/hooks/useBuyerApprovals.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for Buyer approval operations: useGetPendingBuyerApprovals (query), useApproveMaterialRequestByBuyer (mutation)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Implement Finance review and approval UI where Finance receives data from Buyer, can edit and approve partially, with final approval completing workflow",
+      "acceptanceCriteria": [
+        "Finance receives approved requests from Buyer",
+        "Finance can edit request details",
+        "Finance can approve requests partially",
+        "System tracks Finance approval status and remaining amounts",
+        "Final Finance approval completes the request workflow",
+        "Completed approvals trigger next stage (realization reporting)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/FinanceReviewPage.tsx",
+          "operation": "create",
+          "description": "Create Finance-only review page displaying requests approved by Buyer awaiting Finance approval. Wrap with ProtectedRoute requiring Finance role."
+        },
+        {
+          "path": "frontend/src/components/finance/FinanceRequestList.tsx",
+          "operation": "create",
+          "description": "Create Finance request list component showing all pending Finance approvals with columns for requestor, job, material, buyer price, quantity, and action buttons (review, approve)."
+        },
+        {
+          "path": "frontend/src/components/finance/FinanceApprovalDialog.tsx",
+          "operation": "create",
+          "description": "Create Finance approval dialog component to review Buyer-approved requests, edit final price, and approve partially or fully. Display approval history from Buyer stage."
+        },
+        {
+          "path": "frontend/src/hooks/useFinanceApprovals.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for Finance approval operations: useGetPendingFinanceApprovals (query), useApproveMaterialRequestByFinance (mutation)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement realization report UI where Buyer inputs actual prices from invoices/receipts after Finance approval is complete",
+      "acceptanceCriteria": [
+        "Buyer can access realization report form after Finance approval completes",
+        "Buyer inputs actual prices based on vendor invoices/receipts",
+        "System records realization data linked to the original request",
+        "Realization data is available for accounting system consumption"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/RealizationReportPage.tsx",
+          "operation": "create",
+          "description": "Create Buyer-only realization report page for inputting actual prices from vendor invoices after Finance approval. Wrap with ProtectedRoute requiring Buyer role."
+        },
+        {
+          "path": "frontend/src/components/realization/RealizationForm.tsx",
+          "operation": "create",
+          "description": "Create realization form component with fields for material selection, actual price, and vendor selection. Display Finance-approved requests eligible for realization reporting."
+        },
+        {
+          "path": "frontend/src/components/realization/RealizationList.tsx",
+          "operation": "create",
+          "description": "Create realization list component showing all submitted realization reports with columns for material, approved price, actual price, variance, vendor, and date."
+        },
+        {
+          "path": "frontend/src/hooks/useRealizationReports.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for realization report operations: useGetAllRealizationReports, useGetRealizationReportsByMaterial (queries), useAddRealizationReport (mutation)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Implement comprehensive accounting system UI with journal entries, general ledger, balance sheet, profit and loss, cash flow, and budget vs actual comparison per job",
+      "acceptanceCriteria": [
+        "System automatically generates journal entries from realization reports",
+        "General ledger aggregates all journal entries by account",
+        "Balance sheet displays assets, liabilities, and equity",
+        "Profit and loss statement shows revenue and expenses",
+        "Cash flow report tracks project cash movements",
+        "Budget vs actual report compares planned (RAP) vs actual (realization) costs per job",
+        "Accounting data sources from Buyer realization reports"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AccountingDashboardPage.tsx",
+          "operation": "create",
+          "description": "Create Finance-only accounting dashboard page with navigation tabs for Journal Entries, General Ledger, Balance Sheet, P&L, Cash Flow, and Budget vs Actual reports. Wrap with ProtectedRoute requiring Finance role."
+        },
+        {
+          "path": "frontend/src/components/accounting/JournalEntriesView.tsx",
+          "operation": "create",
+          "description": "Create journal entries view component displaying automatically generated journal entries from realization reports in chronological order with account details."
+        },
+        {
+          "path": "frontend/src/components/accounting/GeneralLedgerView.tsx",
+          "operation": "create",
+          "description": "Create general ledger view component showing aggregated journal entries grouped by account with running balances."
+        },
+        {
+          "path": "frontend/src/components/accounting/BalanceSheetView.tsx",
+          "operation": "create",
+          "description": "Create balance sheet view component displaying assets, liabilities, and equity in standard accounting format with calculations."
+        },
+        {
+          "path": "frontend/src/components/accounting/ProfitLossView.tsx",
+          "operation": "create",
+          "description": "Create profit and loss statement view component showing revenue and expenses with totals and net profit/loss calculation."
+        },
+        {
+          "path": "frontend/src/components/accounting/CashFlowView.tsx",
+          "operation": "create",
+          "description": "Create cash flow view component displaying project cash movements categorized by operating, investing, and financing activities."
+        },
+        {
+          "path": "frontend/src/components/accounting/BudgetVsActualView.tsx",
+          "operation": "create",
+          "description": "Create budget vs actual comparison view component showing per-job comparison between planned costs (from RAP) and actual costs (from realization reports) with variance calculations."
+        },
+        {
+          "path": "frontend/src/utils/accountingCalculations.ts",
+          "operation": "create",
+          "description": "Create utility functions for accounting calculations: generating journal entries from realization data, aggregating ledger balances, calculating financial statement totals, and computing budget variances."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Implement progress tracking UI where progress dates are recorded for main jobs to generate S-Curve data",
+      "acceptanceCriteria": [
+        "System records progress dates for main jobs (top-level jobs)",
+        "Progress tracking captures timeline milestones",
+        "Progress data is separate from material usage and cost realization",
+        "Progress dates are used as input for S-Curve generation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ProgressTrackingPage.tsx",
+          "operation": "create",
+          "description": "Create progress tracking page where users (primarily Foreman) can record progress dates and completion percentages for main jobs."
+        },
+        {
+          "path": "frontend/src/components/progress/ProgressRecordForm.tsx",
+          "operation": "create",
+          "description": "Create progress record form component with fields for main job selection, progress percentage, and date input. Display list of main jobs (top-level jobs only)."
+        },
+        {
+          "path": "frontend/src/components/progress/ProgressHistoryList.tsx",
+          "operation": "create",
+          "description": "Create progress history list component showing all recorded progress entries with columns for job name, date, percentage, and recorded by user."
+        },
+        {
+          "path": "frontend/src/hooks/useProgressRecords.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for progress tracking operations: useGetAllProgressRecords, useGetProgressRecordsByJob (queries), useRecordProgress (mutation)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Implement S-Curve visualization showing timeline progress versus planned schedule based on main jobs with interactive chart",
+      "acceptanceCriteria": [
+        "S-Curve displays graphically as a cumulative progress curve over time",
+        "Chart shows planned schedule curve and actual progress curve",
+        "S-Curve is based on main job progress data (not sub-jobs)",
+        "Chart is interactive and updates in real-time as progress is recorded",
+        "Visual clearly distinguishes between plan and actual progress"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SCurvePage.tsx",
+          "operation": "create",
+          "description": "Create S-Curve visualization page displaying interactive chart comparing planned schedule vs actual progress over time for main jobs."
+        },
+        {
+          "path": "frontend/src/components/scurve/SCurveChart.tsx",
+          "operation": "create",
+          "description": "Create S-Curve chart component using a React-compatible charting library (e.g., recharts or chart.js). Display two curves: planned cumulative progress and actual cumulative progress over time with date on x-axis and percentage on y-axis."
+        },
+        {
+          "path": "frontend/src/utils/sCurveCalculations.ts",
+          "operation": "create",
+          "description": "Create utility functions for S-Curve calculations: computing cumulative progress from progress records, generating planned curve data points, aggregating main job progress, and formatting data for chart display."
+        },
+        {
+          "path": "frontend/src/components/scurve/SCurveFilters.tsx",
+          "operation": "create",
+          "description": "Create S-Curve filters component allowing users to filter by date range, specific main jobs, or view all jobs combined for the S-Curve chart."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Create role-specific dashboards for Admin, Foreman, Buyer, and Finance showing relevant overview, summaries, and pending items for each role",
+      "acceptanceCriteria": [
+        "Each role has a dedicated dashboard view upon login",
+        "Admin dashboard shows system overview and project summaries",
+        "Foreman dashboard shows request status, remaining amounts, and progress input options",
+        "Buyer dashboard shows pending requests for review, realization report forms, and material usage visibility",
+        "Finance dashboard shows pending approvals, accounting summaries, and financial reports",
+        "Dashboards display real-time data relevant to each role's workflow"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "create",
+          "description": "Create main dashboard page that dynamically renders role-specific dashboard content based on current user's app role (Admin, Foreman, Buyer, Finance)."
+        },
+        {
+          "path": "frontend/src/components/dashboards/AdminDashboard.tsx",
+          "operation": "create",
+          "description": "Create Admin dashboard component showing system overview: total users, total projects, master data summaries (materials count, jobs count, vendors count), and quick links to master data management."
+        },
+        {
+          "path": "frontend/src/components/dashboards/ForemanDashboard.tsx",
+          "operation": "create",
+          "description": "Create Foreman dashboard component showing request status summary (pending, approved, rejected), remaining amounts for partial approvals, quick link to create new request, and progress tracking shortcuts."
+        },
+        {
+          "path": "frontend/src/components/dashboards/BuyerDashboard.tsx",
+          "operation": "create",
+          "description": "Create Buyer dashboard component showing pending requests count, recent realization reports, material usage summaries, and quick links to review requests and submit realization reports."
+        },
+        {
+          "path": "frontend/src/components/dashboards/FinanceDashboard.tsx",
+          "operation": "create",
+          "description": "Create Finance dashboard component showing pending approval count, accounting summaries (total expenditure, budget remaining), recent journal entries, and quick links to approval queue and accounting reports."
+        },
+        {
+          "path": "frontend/src/components/dashboards/DashboardCard.tsx",
+          "operation": "create",
+          "description": "Create reusable dashboard card component for displaying summary statistics with title, value, icon, and optional action link. Use shadcn/ui Card component."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Implement material usage tracking UI where Buyer can view total materials used against requests when additional requests are submitted",
+      "acceptanceCriteria": [
+        "System tracks cumulative material usage per job",
+        "Buyer can view material usage reports showing total materials consumed",
+        "Material usage is visible when Foreman submits additional requests",
+        "Report helps Buyer assess necessity of additional material requests"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MaterialUsagePage.tsx",
+          "operation": "create",
+          "description": "Create Buyer-only material usage tracking page displaying cumulative material consumption per material type and per job. Wrap with ProtectedRoute requiring Buyer role."
+        },
+        {
+          "path": "frontend/src/components/usage/MaterialUsageSummary.tsx",
+          "operation": "create",
+          "description": "Create material usage summary component showing total requested, total approved, and remaining amounts for each material. Display usage trends and alert for over-budget materials."
+        },
+        {
+          "path": "frontend/src/components/usage/JobMaterialUsage.tsx",
+          "operation": "create",
+          "description": "Create job-specific material usage component showing materials consumed per job with breakdown of approved vs requested quantities and cost comparisons."
+        },
+        {
+          "path": "frontend/src/hooks/useMaterialUsage.ts",
+          "operation": "create",
+          "description": "Create React Query hook for material usage operations: useGetMaterialUsageSummary (query) that fetches cumulative usage data for a specific material."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Design and implement a creative, cohesive visual theme with distinct style suitable for construction project management, avoiding blue and purple color schemes",
+      "acceptanceCriteria": [
+        "Application has a consistent color palette throughout (avoiding blue and purple)",
+        "Typography is clear and professional for construction/engineering context",
+        "Layout supports complex data tables and hierarchical structures",
+        "Visual style conveys reliability and professionalism",
+        "Design patterns are applied consistently across all pages and components"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update global CSS with construction-themed color palette using earth tones (e.g., orange, brown, green, gray) avoiding blue and purple. Define CSS custom properties for primary, secondary, accent colors, and semantic colors (success, warning, error). Ensure professional typography suitable for engineering context."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Configure Tailwind theme with construction-appropriate color palette (earth tones excluding blue/purple), professional font families, and extended spacing/sizing for complex data tables and hierarchical tree structures. Configure theme colors to match global CSS variables."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create main app layout component with header, sidebar navigation, and content area. Apply consistent theme styling and provide navigation structure for all role-specific pages."
+        },
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "create",
+          "description": "Create header component displaying app logo/title, current user name and role, and LoginButton component. Apply theme styling with construction color palette."
+        },
+        {
+          "path": "frontend/src/components/layout/Sidebar.tsx",
+          "operation": "create",
+          "description": "Create sidebar navigation component with role-based menu items. Display navigation links relevant to current user's role (Admin, Foreman, Buyer, Finance). Apply theme styling."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire AppLayout into main App component, wrap authenticated routes with AppLayout. Configure React Router routes for all pages: DashboardPage, MasterDataPage, RAPBuilderPage, RAPTemplatesPage, CreateRequestPage, MyRequestsPage, BuyerReviewPage, FinanceReviewPage, RealizationReportPage, AccountingDashboardPage, ProgressTrackingPage, SCurvePage, MaterialUsagePage. Ensure ProfileSetup modal is rendered when user profile is null and user is authenticated."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Construction project tracking application with RAP/RAB management, unlimited nested sub-jobs, multi-stage approval workflow (Foreman → Buyer → Finance), realization reporting, complete accounting system (journals, ledger, balance sheet, P&L, cash flow, budget vs actual), progress tracking with S-Curve visualization, and role-based access control (Admin, Foreman/Mandor, Buyer, Finance)",
+  "architectural_notes": [
+    "Frontend: React + TypeScript with Tailwind CSS for modern UI",
+    "Backend: Motoko on Internet Computer for decentralized deployment",
+    "Authentication: Internet Identity for secure, passwordless login",
+    "Unlimited nested job hierarchy requires recursive data structures",
+    "Multi-stage approval workflow with partial approval tracking",
+    "Accounting system generates automatic journal entries from approval and realization data",
+    "S-Curve calculations based on main job progress dates vs planned timeline",
+    "Role-based permission system controls access to features and data visibility"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-user-authentication-system-with-internet-identity-supporting-four-roles-admin-foreman-mandor-buyer-and-finance-with-role-based-access-control",
+      "title": "Implement user authentication system with Internet Identity supporting four roles: Admin, Foreman (Mandor), Buyer, and Finance with role-based access control",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-master-data-management-system-for-materials-name-unit-price-jobs-pekerjaan-and-vendors-suppliers-with-crud-operations",
+      "title": "Create master data management system for Materials (name, unit, price), Jobs/Pekerjaan, and Vendors/Suppliers with CRUD operations",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-rap-rencana-anggaran-pelaksanaan-and-rab-rencana-anggaran-biaya-creation-system-with-unlimited-nested-sub-job-structure-where-each-level-has-its-own-volume-unit-and-separate-cost",
+      "title": "Implement RAP (Rencana Anggaran Pelaksanaan) and RAB (Rencana Anggaran Biaya) creation system with unlimited nested sub-job structure where each level has its own volume, unit, and separate cost",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-master-rap-template-system-that-allows-users-to-save-reusable-rap-structures-and-apply-existing-templates-to-new-projects",
+      "title": "Create master RAP template system that allows users to save reusable RAP structures and apply existing templates to new projects",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-material-fund-request-workflow-where-foreman-selects-a-main-job-automatically-including-all-sub-jobs-and-materials-to-create-a-request",
+      "title": "Implement material/fund request workflow where Foreman selects a main job (automatically including all sub-jobs and materials) to create a request",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-buyer-review-and-approval-stage-where-buyer-can-view-requests-from-foreman-edit-quantities-and-prices-and-approve-partially-with-remaining-amounts-tracked-for-future-requests",
+      "title": "Implement Buyer review and approval stage where Buyer can view requests from Foreman, edit quantities and prices, and approve partially with remaining amounts tracked for future requests",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-finance-review-and-approval-stage-where-finance-receives-data-from-buyer-can-edit-and-approve-partially-with-final-approval-completing-the-workflow",
+      "title": "Implement Finance review and approval stage where Finance receives data from Buyer, can edit and approve partially, with final approval completing the workflow",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-realization-report-system-where-buyer-inputs-actual-prices-from-invoices-receipts-after-finance-approval-is-complete",
+      "title": "Implement realization report system where Buyer inputs actual prices from invoices/receipts after Finance approval is complete",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-comprehensive-accounting-system-with-automatic-journal-entries-general-ledger-balance-sheet-profit-and-loss-statement-cash-flow-report-and-budget-vs-actual-comparison-per-job",
+      "title": "Implement comprehensive accounting system with automatic journal entries, general ledger, balance sheet, profit and loss statement, cash flow report, and budget vs actual comparison per job",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-progress-tracking-system-where-progress-dates-are-recorded-for-main-jobs-to-generate-s-curve-data",
+      "title": "Implement progress tracking system where progress dates are recorded for main jobs to generate S-Curve data",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-s-curve-visualization-showing-timeline-progress-versus-planned-schedule-based-on-main-jobs-with-interactive-chart",
+      "title": "Implement S-Curve visualization showing timeline progress versus planned schedule based on main jobs with interactive chart",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-role-specific-dashboards-for-admin-foreman-buyer-and-finance-showing-relevant-overview-summaries-and-pending-items-for-each-role",
+      "title": "Create role-specific dashboards for Admin, Foreman, Buyer, and Finance showing relevant overview, summaries, and pending items for each role",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-material-usage-tracking-where-buyer-can-view-total-materials-used-against-requests-when-additional-requests-are-submitted",
+      "title": "Implement material usage tracking where Buyer can view total materials used against requests when additional requests are submitted",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-and-implement-a-creative-cohesive-visual-theme-with-distinct-style-colors-typography-layout-suitable-for-a-professional-construction-project-management-application-avoiding-blue-and-purple-color-schemes",
+      "title": "Design and implement a creative, cohesive visual theme with distinct style (colors, typography, layout) suitable for a professional construction project management application, avoiding blue and purple color schemes",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Master data management for materials, jobs, vendors, and reusable RAP templates",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "RAP & RAB creation with unlimited nested sub-jobs structure, each with volume, unit, and separate cost inputs",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Multi-stage approval workflow: Foreman selects job (includes all subs & materials) → Buyer review/edit/approve → Finance final approval with partial approval support",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Realization reporting system where Buyer inputs actual prices from invoices after Finance approval",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Complete accounting system with auto journals, general ledger, balance sheet, P&L statement, cash flow, and budget vs actual reports",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Progress tracking with date recording for S-Curve generation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "S-Curve visualization showing timeline progress vs plan based on main jobs",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Role-based access control system with four roles: Admin, Foreman (Mandor), Buyer, and Finance with permissions",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Role-specific dashboards with overview and summaries tailored to each user role",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Construction Project Tracking System",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

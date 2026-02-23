@@ -1,0 +1,139 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-22T13:34:47.472Z",
+  "summary": "The implementation provides a comprehensive construction project tracking system with Internet Identity authentication, role-based access control (Admin, Foreman, Buyer, Finance), master data management (Materials, Jobs, Vendors), and role-specific dashboards. The backend uses Motoko with single-actor architecture, and the frontend uses React with TypeScript and Tailwind CSS. However, several critical requirements are missing: RAP/RAB creation system, RAP templates, material request workflow (REQ-5 to REQ-8), accounting system (REQ-9), progress tracking (REQ-10), S-Curve visualization (REQ-11), and material usage tracking (REQ-13).",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "Implement RAP (Rencana Anggaran Pelaksanaan) and RAB (Rencana Anggaran Biaya) creation system with unlimited nested sub-job structure where each level has its own volume, unit, and separate cost",
+      "reason": "No RAP/RAB creation system is visible in the diff. Jobs exist with nested structure (parentId field), but there is no dedicated RAP/RAB entity or RAP builder interface beyond the route stub.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Create master RAP template system that allows users to save reusable RAP structures and apply existing templates to new projects",
+      "reason": "RAPTemplate type exists in backend (backend/main.mo) and routes are defined, but no evidence of CRUD operations, template saving/loading, or UI implementation for managing templates.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Implement material/fund request workflow where Foreman selects a main job (automatically including all sub-jobs and materials) to create a request",
+      "reason": "MaterialRequest type exists but no workflow logic for selecting jobs with automatic sub-job inclusion. No evidence of request creation linking jobs to materials or capturing job hierarchies.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Implement Buyer review and approval stage where Buyer can view requests from Foreman, edit quantities and prices, and approve partially with remaining amounts tracked for future requests",
+      "reason": "MaterialRequest has approvedByBuyer and buyerPrice fields, but no partial approval logic, remaining amount tracking, or buyer editing capabilities are evident in the backend implementation.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Implement Finance review and approval stage where Finance receives data from Buyer, can edit and approve partially, with final approval completing the workflow",
+      "reason": "MaterialRequest has approvedByFinance and financePrice fields, but no partial approval workflow, remaining amount tracking, or finance editing/approval functions visible in backend.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Implement realization report system where Buyer inputs actual prices from invoices/receipts after Finance approval is complete",
+      "reason": "RealizationReport type exists but no linkage to MaterialRequest or workflow logic ensuring realization only occurs after Finance approval. No implementation of realization form or data linking.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Implement comprehensive accounting system with automatic journal entries, general ledger, balance sheet, profit and loss statement, cash flow report, and budget vs actual comparison per job",
+      "reason": "No accounting entities (journal entries, ledger accounts, financial statements) or automatic journal generation logic exist in the backend. AccountingDashboardPage route exists but no underlying accounting implementation.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Implement progress tracking system where progress dates are recorded for main jobs to generate S-Curve data",
+      "reason": "ProgressRecord type exists but no implementation of recording progress dates for main jobs or linking progress to jobs. No progress input logic or S-Curve data generation visible.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "requirement": "Implement S-Curve visualization showing timeline progress versus planned schedule based on main jobs with interactive chart",
+      "reason": "SCurvePage route exists but no charting library integration, S-Curve calculation logic, or visualization component is implemented. No evidence of planned vs actual progress curves.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "requirement": "Implement material usage tracking where Buyer can view total materials used against requests when additional requests are submitted",
+      "reason": "MaterialUsagePage route exists but no cumulative material usage tracking logic, material consumption aggregation, or usage report functionality is implemented in backend or frontend.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "hallucinated_features": [],
+  "confidence": 0.85,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/ProfileSetup.tsx",
+    "frontend/src/components/dashboards/AdminDashboard.tsx",
+    "frontend/src/components/dashboards/BuyerDashboard.tsx",
+    "frontend/src/components/dashboards/DashboardCard.tsx",
+    "frontend/src/components/dashboards/FinanceDashboard.tsx",
+    "frontend/src/components/dashboards/ForemanDashboard.tsx",
+    "frontend/src/components/jobs/JobForm.tsx",
+    "frontend/src/components/jobs/JobList.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/components/layout/Footer.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/components/layout/Sidebar.tsx",
+    "frontend/src/components/materials/MaterialForm.tsx",
+    "frontend/src/components/materials/MaterialList.tsx",
+    "frontend/src/components/vendors/VendorForm.tsx",
+    "frontend/src/components/vendors/VendorList.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AccountingDashboardPage.tsx",
+    "frontend/src/pages/BuyerReviewPage.tsx",
+    "frontend/src/pages/CreateRequestPage.tsx",
+    "frontend/src/pages/DashboardPage.tsx",
+    "frontend/src/pages/FinanceReviewPage.tsx",
+    "frontend/src/pages/MasterDataPage.tsx",
+    "frontend/src/pages/MaterialUsagePage.tsx",
+    "frontend/src/pages/MyRequestsPage.tsx",
+    "frontend/src/pages/ProgressTrackingPage.tsx",
+    "frontend/src/pages/RAPBuilderPage.tsx",
+    "frontend/src/pages/RAPTemplatesPage.tsx",
+    "frontend/src/pages/RealizationReportPage.tsx",
+    "frontend/src/pages/SCurvePage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

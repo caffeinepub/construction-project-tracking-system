@@ -1,0 +1,289 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-user-authentication-system-with-internet-identity-supporting-four-roles-admin-foreman-mandor-buyer-and-finance-with-role-based-access-control",
+      "featureTitle": "Implement user authentication system with Internet Identity supporting four roles: Admin, Foreman (Mandor), Buyer, and Finance with role-based access control",
+      "files": [
+        "frontend/src/components/LoginButton.tsx",
+        "frontend/src/components/ProfileSetup.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-master-data-management-system-for-materials-name-unit-price-jobs-pekerjaan-and-vendors-suppliers-with-crud-operations",
+      "featureTitle": "Create master data management system for Materials (name, unit, price), Jobs/Pekerjaan, and Vendors/Suppliers with CRUD operations",
+      "files": [
+        "frontend/src/components/jobs/JobForm.tsx",
+        "frontend/src/components/jobs/JobList.tsx",
+        "frontend/src/components/materials/MaterialForm.tsx",
+        "frontend/src/components/materials/MaterialList.tsx",
+        "frontend/src/components/vendors/VendorForm.tsx",
+        "frontend/src/components/vendors/VendorList.tsx",
+        "frontend/src/pages/MasterDataPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-rap-rencana-anggaran-pelaksanaan-and-rab-rencana-anggaran-biaya-creation-system-with-unlimited-nested-sub-job-structure-where-each-level-has-its-own-volume-unit-and-separate-cost",
+      "featureTitle": "Implement RAP (Rencana Anggaran Pelaksanaan) and RAB (Rencana Anggaran Biaya) creation system with unlimited nested sub-job structure where each level has its own volume, unit, and separate cost",
+      "files": [
+        "frontend/src/pages/RAPBuilderPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-master-rap-template-system-that-allows-users-to-save-reusable-rap-structures-and-apply-existing-templates-to-new-projects",
+      "featureTitle": "Create master RAP template system that allows users to save reusable RAP structures and apply existing templates to new projects",
+      "files": [
+        "frontend/src/pages/RAPTemplatesPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-material-fund-request-workflow-where-foreman-selects-a-main-job-automatically-including-all-sub-jobs-and-materials-to-create-a-request",
+      "featureTitle": "Implement material/fund request workflow where Foreman selects a main job (automatically including all sub-jobs and materials) to create a request",
+      "files": [
+        "frontend/src/pages/CreateRequestPage.tsx",
+        "frontend/src/pages/MyRequestsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-buyer-review-and-approval-stage-where-buyer-can-view-requests-from-foreman-edit-quantities-and-prices-and-approve-partially-with-remaining-amounts-tracked-for-future-requests",
+      "featureTitle": "Implement Buyer review and approval stage where Buyer can view requests from Foreman, edit quantities and prices, and approve partially with remaining amounts tracked for future requests",
+      "files": [
+        "frontend/src/pages/BuyerReviewPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-finance-review-and-approval-stage-where-finance-receives-data-from-buyer-can-edit-and-approve-partially-with-final-approval-completing-the-workflow",
+      "featureTitle": "Implement Finance review and approval stage where Finance receives data from Buyer, can edit and approve partially, with final approval completing the workflow",
+      "files": [
+        "frontend/src/pages/FinanceReviewPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-realization-report-system-where-buyer-inputs-actual-prices-from-invoices-receipts-after-finance-approval-is-complete",
+      "featureTitle": "Implement realization report system where Buyer inputs actual prices from invoices/receipts after Finance approval is complete",
+      "files": [
+        "frontend/src/pages/RealizationReportPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-comprehensive-accounting-system-with-automatic-journal-entries-general-ledger-balance-sheet-profit-and-loss-statement-cash-flow-report-and-budget-vs-actual-comparison-per-job",
+      "featureTitle": "Implement comprehensive accounting system with automatic journal entries, general ledger, balance sheet, profit and loss statement, cash flow report, and budget vs actual comparison per job",
+      "files": [
+        "frontend/src/pages/AccountingDashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-progress-tracking-system-where-progress-dates-are-recorded-for-main-jobs-to-generate-s-curve-data",
+      "featureTitle": "Implement progress tracking system where progress dates are recorded for main jobs to generate S-Curve data",
+      "files": [
+        "frontend/src/pages/ProgressTrackingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-s-curve-visualization-showing-timeline-progress-versus-planned-schedule-based-on-main-jobs-with-interactive-chart",
+      "featureTitle": "Implement S-Curve visualization showing timeline progress versus planned schedule based on main jobs with interactive chart",
+      "files": [
+        "frontend/src/pages/SCurvePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-role-specific-dashboards-for-admin-foreman-buyer-and-finance-showing-relevant-overview-summaries-and-pending-items-for-each-role",
+      "featureTitle": "Create role-specific dashboards for Admin, Foreman, Buyer, and Finance showing relevant overview, summaries, and pending items for each role",
+      "files": [
+        "frontend/src/components/dashboards/AdminDashboard.tsx",
+        "frontend/src/components/dashboards/BuyerDashboard.tsx",
+        "frontend/src/components/dashboards/DashboardCard.tsx",
+        "frontend/src/components/dashboards/FinanceDashboard.tsx",
+        "frontend/src/components/dashboards/ForemanDashboard.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-material-usage-tracking-where-buyer-can-view-total-materials-used-against-requests-when-additional-requests-are-submitted",
+      "featureTitle": "Implement material usage tracking where Buyer can view total materials used against requests when additional requests are submitted",
+      "files": [
+        "frontend/src/pages/MaterialUsagePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-design-and-implement-a-creative-cohesive-visual-theme-with-distinct-style-colors-typography-layout-suitable-for-a-professional-construction-project-management-application-avoiding-blue-and-purple-color-schemes",
+      "featureTitle": "Design and implement a creative, cohesive visual theme with distinct style (colors, typography, layout) suitable for a professional construction project management application, avoiding blue and purple color schemes",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/components/layout/Sidebar.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

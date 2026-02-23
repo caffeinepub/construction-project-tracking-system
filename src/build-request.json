@@ -1,0 +1,343 @@
+{
+  "kind": "build_request",
+  "title": "Build construction project tracking application with RAP/RAB, multi-stage approval workflow, and accounting system",
+  "projectName": "Construction Tracker",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement user authentication system with Internet Identity supporting four roles: Admin, Foreman (Mandor), Buyer, and Finance with role-based access control",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-3",
+          "msg-5"
+        ],
+        "quotes": [
+          "Saya ingin ada role user dan permissionnya",
+          "4 Role: Admin, Mandor, Buyer, Keuangan"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can authenticate using Internet Identity",
+        "System enforces four distinct roles: Admin, Foreman, Buyer, Finance",
+        "Each role has appropriate permissions for their workflow stage",
+        "Users can only access features permitted for their role"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create master data management system for Materials (name, unit, price), Jobs/Pekerjaan, and Vendors/Suppliers with CRUD operations",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-3"
+        ],
+        "quotes": [
+          "Master Material (nama, satuan, harga)",
+          "Master Pekerjaan",
+          "Master Vendor/Supplier"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin can create, read, update, and delete materials with name, unit, and price fields",
+        "Admin can manage jobs/work items master data",
+        "Admin can manage vendor/supplier master data",
+        "All master data is accessible for use in RAP creation"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement RAP (Rencana Anggaran Pelaksanaan) and RAB (Rencana Anggaran Biaya) creation system with unlimited nested sub-job structure where each level has its own volume, unit, and separate cost",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-3",
+          "msg-6"
+        ],
+        "quotes": [
+          "Aplikasi bisa membuat RAP dan RAB",
+          "Dimana user bisa membuat RAp dari master2 ,.sehingga user tinggal tempel",
+          "Unlimited levels (user bisa buat nested sub-pekerjaan sesuka hati)",
+          "Setiap sub-pekerjaan punya volume, satuan, dan biaya sendiri"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can create RAP/RAB by selecting from master data (materials, jobs)",
+        "Sub-jobs can be nested to unlimited depth levels",
+        "Each job and sub-job level has independent volume, unit, and cost fields",
+        "Cost at each level is manually entered and not auto-calculated from children",
+        "Users can build RAP structure hierarchically with main jobs and nested sub-jobs"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create master RAP template system that allows users to save reusable RAP structures and apply existing templates to new projects",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "User bisa membuat template sendiri, atau template yg sudah ada",
+          "Master template RAP yang bisa dipakai ulang untuk proyek-proyek baru"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can save a RAP structure as a master template",
+        "Templates preserve the complete nested sub-job hierarchy",
+        "Users can browse and select from existing master templates",
+        "Applying a template creates a new RAP instance that can be customized",
+        "Templates are reusable across multiple projects"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement material/fund request workflow where Foreman selects a main job (automatically including all sub-jobs and materials) to create a request",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-8"
+        ],
+        "quotes": [
+          "role mandor atau orang lapangan akan meminta dana / material dari tiap pekerjaan berdasarkan RAp yg ada",
+          "Mandor pilih pekerjaan utama → otomatis include semua sub-pekerjaan dan material di dalamnya"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Foreman can create material/fund requests based on RAP jobs",
+        "Selecting a main job automatically includes all nested sub-jobs and their materials",
+        "Request captures the complete job hierarchy with quantities and costs",
+        "Request is submitted to Buyer for review"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement Buyer review and approval stage where Buyer can view requests from Foreman, edit quantities and prices, and approve partially with remaining amounts tracked for future requests",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-3"
+        ],
+        "quotes": [
+          "Laporan diterima bagian buyer, buyer bisa edit qty ,harga dan acc sebagian. Dimana nanti.mandor bisa minta lagi sisanya",
+          "Buyer: Review, edit qty/harga, approve sebagian → mandor bisa request sisa"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Buyer receives requests from Foreman in their dashboard",
+        "Buyer can edit quantity and price for requested items",
+        "Buyer can approve requests partially (approve a portion of the requested amount)",
+        "System tracks remaining unapproved amounts",
+        "Foreman can submit new requests for the remaining amounts",
+        "Approved requests move to Finance stage"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement Finance review and approval stage where Finance receives data from Buyer, can edit and approve partially, with final approval completing the workflow",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-3"
+        ],
+        "quotes": [
+          "Lalu data dari buyer akan di terima keuangan. Sama keuangan jg bisa edit dan acc sebagian dari data buyer",
+          "Keuangan: Review data dari buyer, edit & approve sebagian"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Finance receives approved requests from Buyer",
+        "Finance can edit request details",
+        "Finance can approve requests partially",
+        "System tracks Finance approval status and remaining amounts",
+        "Final Finance approval completes the request workflow",
+        "Completed approvals trigger next stage (realization reporting)"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement realization report system where Buyer inputs actual prices from invoices/receipts after Finance approval is complete",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-10",
+          "msg-11"
+        ],
+        "quotes": [
+          "Ada menu laporan realisasi untuk buyer, dimana buyer akan melaporkan sesuai bon atau harga asli",
+          "Buyer input harga aktual sesuai bon/invoice dari vendor",
+          "Tahap lanjutan setelah approval keuangan selesai"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Buyer can access realization report form after Finance approval completes",
+        "Buyer inputs actual prices based on vendor invoices/receipts",
+        "System records realization data linked to the original request",
+        "Realization data is available for accounting system consumption"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Implement comprehensive accounting system with automatic journal entries, general ledger, balance sheet, profit and loss statement, cash flow report, and budget vs actual comparison per job",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-10",
+          "msg-11"
+        ],
+        "quotes": [
+          "Akan lebih baik jika ada pengelolaan accountingnya juga",
+          "Jurnal transaksi otomatis, Buku besar, Neraca, Laporan laba rugi, Cash flow proyek, Budget vs actual per pekerjaan"
+        ]
+      },
+      "acceptanceCriteria": [
+        "System automatically generates journal entries from realization reports",
+        "General ledger aggregates all journal entries by account",
+        "Balance sheet displays assets, liabilities, and equity",
+        "Profit and loss statement shows revenue and expenses",
+        "Cash flow report tracks project cash movements",
+        "Budget vs actual report compares planned (RAP) vs actual (realization) costs per job",
+        "Accounting data sources from Buyer realization reports"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Implement progress tracking system where progress dates are recorded for main jobs to generate S-Curve data",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-4",
+          "msg-11"
+        ],
+        "quotes": [
+          "mandor ada laporan untuk progress pekerjaan",
+          "Kurva S berdasarkan pekerjaan utama (level teratas)",
+          "Kurva S: Pencatatan tanggal progress pekerjaan (timeline)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "System records progress dates for main jobs (top-level jobs)",
+        "Progress tracking captures timeline milestones",
+        "Progress data is separate from material usage and cost realization",
+        "Progress dates are used as input for S-Curve generation"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Implement S-Curve visualization showing timeline progress versus planned schedule based on main jobs with interactive chart",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1",
+          "msg-3",
+          "msg-4"
+        ],
+        "quotes": [
+          "Saya ingin agar bisa bentuk kurva S",
+          "Kurva S - Visualisasi progress vs rencana dengan grafik interaktif",
+          "Kurva S: Visualisasi progress timeline vs rencana (berdasarkan pekerjaan utama)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "S-Curve displays graphically as a cumulative progress curve over time",
+        "Chart shows planned schedule curve and actual progress curve",
+        "S-Curve is based on main job progress data (not sub-jobs)",
+        "Chart is interactive and updates in real-time as progress is recorded",
+        "Visual clearly distinguishes between plan and actual progress"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Create role-specific dashboards for Admin, Foreman, Buyer, and Finance showing relevant overview, summaries, and pending items for each role",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3",
+          "msg-5"
+        ],
+        "quotes": [
+          "Dashboard per role",
+          "Overview khusus per role",
+          "Summary proyek, permintaan pending, progress"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each role has a dedicated dashboard view upon login",
+        "Admin dashboard shows system overview and project summaries",
+        "Foreman dashboard shows request status, remaining amounts, and progress input options",
+        "Buyer dashboard shows pending requests for review, realization report forms, and material usage visibility",
+        "Finance dashboard shows pending approvals, accounting summaries, and financial reports",
+        "Dashboards display real-time data relevant to each role's workflow"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Implement material usage tracking where Buyer can view total materials used against requests when additional requests are submitted",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "dmn input material yg terpakai hingga buyer bisa lihat sudah brp material yg terpakai ketika ada permintaan tambahan"
+        ]
+      },
+      "acceptanceCriteria": [
+        "System tracks cumulative material usage per job",
+        "Buyer can view material usage reports showing total materials consumed",
+        "Material usage is visible when Foreman submits additional requests",
+        "Report helps Buyer assess necessity of additional material requests"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Design and implement a creative, cohesive visual theme with distinct style (colors, typography, layout) suitable for a professional construction project management application, avoiding blue and purple color schemes",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-design"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Application has a consistent color palette throughout (avoiding blue and purple)",
+        "Typography is clear and professional for construction/engineering context",
+        "Layout supports complex data tables and hierarchical structures",
+        "Visual style conveys reliability and professionalism",
+        "Design patterns are applied consistently across all pages and components"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must use single-actor Motoko architecture with all logic in main.mo",
+    "Frontend must use React with TypeScript, Tailwind CSS, and React Query",
+    "Authentication must use Internet Identity (no external auth providers)",
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
+    "No external databases - use Internet Computer's stable storage",
+    "No real-time WebSocket features",
+    "S-Curve visualization must use supported charting libraries compatible with React"
+  ],
+  "nonGoals": [
+    "Laravel or PHP implementation",
+    "MySQL or PostgreSQL database integration",
+    "Mobile native applications (React Native, Flutter)",
+    "Real-time collaboration features with WebSockets",
+    "Email notifications or SMS integration",
+    "Third-party authentication providers beyond Internet Identity",
+    "Export to Excel/PDF (can be added later if needed)",
+    "Multi-project portfolio management in initial version",
+    "Advanced financial features like payroll or invoicing beyond accounting reports"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
